@@ -1,0 +1,108 @@
+.root {
+    display: block;
+    background-color: #fff;
+    padding: 36px;
+    margin-left: 16px;
+}
+
+.root__content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.root__row {
+    width: 1210px;
+    padding: 20px;
+}
+
+.root__layout {
+    background-color: white;
+    box-shadow: 0 4px 12px 0 rgba(0,0,0,0.15);
+    font-family: "Inter", sans-serif;
+    height: 300px;
+    overflow-y: hidden;
+}
+
+.root__image {
+    width: 190px;
+    height: 100%;
+    object-fit: fill;
+}
+
+.root__title {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    margin: 0 0 10px 0;
+}
+
+.root__date {
+    font-size: 12px;
+    line-height: 22px;
+    color: #827E7E;
+}
+
+.root__tags {
+    font-size: 12px;
+    line-height: 100%;
+    margin: 0 0 8px 0;
+}
+
+.root__description {
+    font-size: 12px;
+    line-height: 22px;
+}
+
+.root__spinner {
+    transform: scale(2);
+    margin-top: 60px;
+}
+
+.root__search {
+    width: calc(100% - 36px);
+    height: 40px;
+    border: solid 1px #D9D9D9;
+    border-radius: 4px;
+    margin-left: 18px;
+    margin-right: 18px;
+    padding: 12px;
+}
+
+.root__no-results-message {
+    font-size: 40px;
+    font-family: "Chakra";
+}
+
+.root__rate {
+    margin-top: auto;
+    align-self: center;
+    margin-right: -8px;
+}
+
+.root__poster-spinner {
+    width: 190px;
+    height: 100%;
+    background-color: #fff;
+    padding-top: 65%;
+}
+
+.root__film-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.root__rating {
+    display: flex;
+    border: 3px solid #E9D100;
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-right: -16px;
+}
