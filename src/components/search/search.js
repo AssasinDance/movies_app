@@ -1,12 +1,14 @@
 import { debounce } from 'lodash'
 import { useCallback, useEffect } from 'react'
 
-import { moviesdbApi, moviesdbApiGetRatedMovies } from '../moviesdb-api/moviesdb-api'
+import { moviesdbApi, moviesdbApiGetRatedMovies } from '../moviesdbApi/moviesdbApi'
 
 export default function SearchInput(props) {
   const debouncedSearch = useCallback(
     debounce((query) => {
+      if (typeof query !== 'string' || !query || query[0] === ' ') return
       props.setData(null)
+      props.setQuery(query)
       moviesdbApi(query)
         .then(([body, total_pages, page]) => {
           props.setData(body)
@@ -28,13 +30,12 @@ export default function SearchInput(props) {
           console.error(err)
           props.setData(false)
         })
-    }, 300),
+    }, 1000),
     []
   )
 
   const searchInputHandler = (event) => {
     const value = event.target.value
-    props.setQuery(value)
     debouncedSearch.cancel()
 
     debouncedSearch(value)

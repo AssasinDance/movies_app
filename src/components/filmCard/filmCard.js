@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Col, Layout, Tag, Rate, ConfigProvider } from 'antd'
 
 import Img from '../img/img'
-import { GenresContext } from '../rows/rows'
-import { moviesdbApiAddRating } from '../moviesdb-api/moviesdb-api'
+import { GenresContext } from '../listOfCards/listOfCards'
+import { moviesdbApiAddRating } from '../moviesdbApi/moviesdbApi'
 
 const { Content, Sider } = Layout
 
-export default function Column(props) {
+export default function FilmCard(props) {
   let borderColor
   const genres = useContext(GenresContext)
   if (props.rating === 0) {
@@ -40,14 +40,9 @@ export default function Column(props) {
   }, [props.ratedMovies])
 
   return (
-    <Col span={12} className="root__column">
+    <Col xl={12} xs={24} className="root__column">
       <Layout className="root__layout">
-        <Sider width="auto">
-          {/* <img
-            src={props.poster_URL[0] === '.' ? require('../../img/posterTemp.png') : props.poster_URL}
-            className="root__image"
-            alt="poster"
-          /> */}
+        <Sider width="auto" className="root__sider">
           <Img poster_URL={props.poster_URL} />
         </Sider>
         <Content className="root__content">
@@ -80,7 +75,7 @@ export default function Column(props) {
             theme={{
               components: {
                 Rate: {
-                  starSize: 23,
+                  starSize: 18,
                 },
               },
             }}

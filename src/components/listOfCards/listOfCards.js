@@ -2,18 +2,18 @@ import React, { useState, useEffect, createContext } from 'react'
 import { Row, Spin, Alert, Pagination, Tabs } from 'antd'
 import { format } from 'date-fns'
 
-import Column from '../column/column.js'
+import FilmCard from '../filmCard/filmCard.js'
 import SearchInput from '../search/search.js'
 import {
   moviesdbApi,
   moviesdbApiGenre,
   moviesdbApiCreateGuest,
   moviesdbApiGetRatedMovies,
-} from '../moviesdb-api/moviesdb-api'
+} from '../moviesdbApi/moviesdbApi.js'
 
 export const GenresContext = createContext([])
 
-export default function Rows() {
+export default function ListOfCards() {
   const [data, setData] = useState(null)
   const [totalPages, setTotalPages] = useState(1)
   const [totalPagesRated, setTotalPagesRated] = useState(1)
@@ -23,7 +23,6 @@ export default function Rows() {
   const [genres, setGenres] = useState([])
   const [sessionId, setSessionId] = useState()
   const [ratedMovies, setRatedMovies] = useState(null)
-  const body = document.querySelector('.body')
   const descriptionLength = 150
   const titleLength = 45
 
@@ -86,45 +85,20 @@ export default function Rows() {
     }
   }
 
-  const Search = () => {
+  const Content = () => {
     if (data !== null && data.length === 0) {
       return (
-        <GenresContext.Provider value={genres}>
-          <SearchInput
-            setData={setData}
-            setTotalPages={setTotalPages}
-            setPage={setPage}
-            page={page}
-            setQuery={setQuery}
-            setRatedMovies={setRatedMovies}
-            sessionId={sessionId}
-            setPageRated={setPageRated}
-            setTotalPagesRated={setTotalPagesRated}
-          />
-          <Row gutter={[36, 36]} justify="center" className="root__row">
-            <span className="root__no-results-message">No results</span>
-          </Row>
-        </GenresContext.Provider>
+        <Row gutter={[36, 36]} justify="center" className="root__row">
+          <span className="root__no-results-message">No results</span>
+        </Row>
       )
     } else if (data) {
-      body.style = ''
       return (
         <GenresContext.Provider value={genres}>
-          <SearchInput
-            setData={setData}
-            setTotalPages={setTotalPages}
-            setPage={setPage}
-            page={page}
-            setQuery={setQuery}
-            setRatedMovies={setRatedMovies}
-            sessionId={sessionId}
-            setPageRated={setPageRated}
-            setTotalPagesRated={setTotalPagesRated}
-          />
           <Row gutter={[36, 36]} justify="center" className="root__row">
             {data.map((item, index) => {
               return (
-                <Column
+                <FilmCard
                   key={index}
                   title={
                     item.title
@@ -183,19 +157,33 @@ export default function Rows() {
         </GenresContext.Provider>
       )
     } else if (data === false) {
-      body.style = 'background-color: #fff;'
-      return (
-        <Alert
-          message="Something went wrong!"
-          type="error"
-          showIcon
-          style={{ transform: 'scale(2)', marginTop: '30px' }}
-        />
-      )
+      return <Alert message="Something went wrong!" type="error" showIcon className="root__alert" />
     } else {
-      body.style = 'background-color: #fff;'
-      return <Spin size="large" className="root__spinner" />
+      return (
+        <div className="flex-container">
+          <Spin size="large" className="root__spinner" />
+        </div>
+      )
     }
+  }
+
+  const Search = () => {
+    return (
+      <>
+        <SearchInput
+          setData={setData}
+          setTotalPages={setTotalPages}
+          setPage={setPage}
+          page={page}
+          setQuery={setQuery}
+          setRatedMovies={setRatedMovies}
+          sessionId={sessionId}
+          setPageRated={setPageRated}
+          setTotalPagesRated={setTotalPagesRated}
+        />
+        <Content />
+      </>
+    )
   }
 
   const Rated = () => {
@@ -208,13 +196,12 @@ export default function Rows() {
         </GenresContext.Provider>
       )
     } else if (ratedMovies) {
-      body.style = ''
       return (
         <GenresContext.Provider value={genres}>
           <Row gutter={[36, 36]} justify="center" className="root__row">
             {ratedMovies.map((item, index) => {
               return (
-                <Column
+                <FilmCard
                   key={index}
                   title={
                     item.title
@@ -273,24 +260,20 @@ export default function Rows() {
         </GenresContext.Provider>
       )
     } else if (ratedMovies === false) {
-      body.style = 'background-color: #fff;'
-      return (
-        <Alert
-          message="Something went wrong!"
-          type="error"
-          showIcon
-          style={{ transform: 'scale(2)', marginTop: '30px' }}
-        />
-      )
+      return <Alert message="Something went wrong!" type="error" showIcon className="root__alert" />
     } else {
-      body.style = 'background-color: #fff;'
-      return <Spin size="large" className="root__spinner" />
+      return (
+        <div className="flex-container">
+          <Spin size="large" className="root__spinner" />
+        </div>
+      )
     }
   }
 
   return (
     <Tabs
       centered={true}
+      className="root__tabs"
       onChange={() => {
         setRatedMovies(null)
         moviesdbApiGetRatedMovies(sessionId)

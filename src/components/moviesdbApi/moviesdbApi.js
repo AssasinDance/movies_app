@@ -1,5 +1,4 @@
 export async function moviesdbApi(query = 'Alice in Wonderland', page = 1) {
-  if (typeof query !== 'string' && !query && query[0] === ' ') return []
   const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=true&language=en-US&page=${page}`
   const options = {
     method: 'GET',
