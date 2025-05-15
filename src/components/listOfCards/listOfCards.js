@@ -157,7 +157,7 @@ export default function ListOfCards() {
         </GenresContext.Provider>
       )
     } else if (data === false) {
-      return <Alert message="Something went wrong!" type="error" showIcon className="root__alert" />
+      return <Alert message="Something went wrong! Try turning on VPN" type="error" showIcon className="root__alert" />
     } else {
       return (
         <div className="flex-container">
@@ -260,7 +260,7 @@ export default function ListOfCards() {
         </GenresContext.Provider>
       )
     } else if (ratedMovies === false) {
-      return <Alert message="Something went wrong!" type="error" showIcon className="root__alert" />
+      return <Alert message="Something went wrong! Try turning on VPN" type="error" showIcon className="root__alert" />
     } else {
       return (
         <div className="flex-container">
